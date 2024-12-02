@@ -9,8 +9,8 @@ using Xunit;
 
 namespace Customers.Api.Tests.Integration.CustomerController;
 
-//[Collection("CustomerApi Collection")]
-public class GetCustomerControllerTests : IClassFixture<WebApplicationFactory<IApiMarker>>
+[Collection("CustomerApi Collection")]
+public class GetCustomerControllerTests
 {
     private readonly HttpClient _httpClient;
 
