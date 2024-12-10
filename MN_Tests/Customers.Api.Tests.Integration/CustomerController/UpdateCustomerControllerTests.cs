@@ -9,10 +9,11 @@ using Xunit;
 
 namespace Customers.Api.Tests.Integration.CustomerController;
 
-public class UpdateCustomerControllerTests : IClassFixture<CustomerApiFactory>
+[Collection("Test collection")]
+public class UpdateCustomerControllerTests : IAsyncLifetime
 {
-    private readonly CustomerApiFactory _appFactory;
     private readonly HttpClient _client;
+    private readonly Func<Task> _resetDatabase;
     private readonly Faker<CustomerRequest> _customerGenerator =
         new Faker<CustomerRequest>()
             .RuleFor(x => x.FullName, faker => faker.Person.FullName)
@@ -22,8 +23,8 @@ public class UpdateCustomerControllerTests : IClassFixture<CustomerApiFactory>
 
     public UpdateCustomerControllerTests(CustomerApiFactory appFactory)
     {
-        _appFactory = appFactory;
-        _client = _appFactory.CreateClient();
+        _client = appFactory.HttpClient;
+        _resetDatabase = appFactory.ResetDatabaseAsync;
     }
     
     [Fact]
@@ -91,4 +92,8 @@ public class UpdateCustomerControllerTests : IClassFixture<CustomerApiFactory>
         error!.Title.Should().Be("One or more validation errors occurred.");
         error!.Errors["Customer"][0].Should().Be($"There is no GitHub user with username {invalidGitHubUser}");
     }
+    
+    public Task InitializeAsync() => Task.CompletedTask;
+
+    public Task DisposeAsync() => _resetDatabase();
 }

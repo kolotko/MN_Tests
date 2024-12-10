@@ -8,10 +8,11 @@ using Xunit;
 
 namespace Customers.Api.Tests.Integration.CustomerController;
 
-public class GetAllCustomerControllerTests : IClassFixture<CustomerApiFactory>
+[Collection("Test collection")]
+public class GetAllCustomerControllerTests : IAsyncLifetime
 {
-    private readonly CustomerApiFactory _appFactory;
     private readonly HttpClient _client;
+    private readonly Func<Task> _resetDatabase;
     private readonly Faker<CustomerRequest> _customerGenerator =
         new Faker<CustomerRequest>()
             .RuleFor(x => x.FullName, faker => faker.Person.FullName)
@@ -21,8 +22,8 @@ public class GetAllCustomerControllerTests : IClassFixture<CustomerApiFactory>
     
     public GetAllCustomerControllerTests(CustomerApiFactory appFactory)
     {
-        _appFactory = appFactory;
-        _client = _appFactory.CreateClient();
+        _client = appFactory.HttpClient;
+        _resetDatabase = appFactory.ResetDatabaseAsync;
     }
 
     
@@ -57,4 +58,8 @@ public class GetAllCustomerControllerTests : IClassFixture<CustomerApiFactory>
         var customersResponse = await response.Content.ReadFromJsonAsync<GetAllCustomersResponse>();
         customersResponse!.Customers.Should().BeEmpty();
     }
+    
+    public Task InitializeAsync() => Task.CompletedTask;
+
+    public Task DisposeAsync() => _resetDatabase();
 }
