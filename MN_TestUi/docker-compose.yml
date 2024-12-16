@@ -1,0 +1,6 @@
+﻿services:
+  customers.webapp.tests.integration:
+    image: customers.webapp.tests.integration
+    build:
+      context: .
+      dockerfile: Customers.WebApp.Tests.Integration/Dockerfile
