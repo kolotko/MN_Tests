@@ -1,0 +1,7 @@
+﻿{
+  Type: ArgumentException,
+  Message: Value does not fall within the expected range.,
+  StackTrace:
+at Snapshot.Api.Services.CustomerService.CustomerException()
+at Snapshot.Tests.CustomerServiceTests.<>c__DisplayClass3_0.<CustomerExceptionTest>b__0()
+}

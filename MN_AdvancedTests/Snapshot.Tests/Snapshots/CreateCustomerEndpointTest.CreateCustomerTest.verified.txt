@@ -1,0 +1,57 @@
+﻿{
+  target: {
+    Status: 201 Created,
+    Headers: {
+      Date: DateTime_1,
+      Location: http://localhost:5081/customers?id=Guid_1,
+      Server: Kestrel,
+      Transfer-Encoding: chunked
+    },
+    Content: {
+      Headers: {
+        Content-Type: application/json; charset=utf-8
+      },
+      Value: {
+        name: John,
+        surName: Doe,
+        age: 15
+      }
+    }
+  },
+  httpCall: {
+    Status: Created,
+    Request: {
+      Method: POST,
+      Uri: http://localhost:5081/customers,
+      Headers: {
+        traceparent: {Scrubbed},
+        Transfer-Encoding: chunked
+      },
+      ContentHeaders: {
+        Content-Type: application/json; charset=utf-8
+      },
+      ContentStringParsed: {
+        name: John,
+        surName: Doe,
+        age: 15
+      }
+    },
+    Response: {
+      Status: 201 Created,
+      Headers: {
+        Date: DateTime_1,
+        Location: http://localhost:5081/customers?id=Guid_1,
+        Server: Kestrel,
+        Transfer-Encoding: chunked
+      },
+      ContentHeaders: {
+        Content-Type: application/json; charset=utf-8
+      },
+      ContentStringParsed: {
+        name: John,
+        surName: Doe,
+        age: 15
+      }
+    }
+  }
+}
