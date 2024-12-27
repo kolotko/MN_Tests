@@ -2,6 +2,7 @@
 obj
 .idea
 .vs
+*.user
 
 # Verify
 *.received.*
